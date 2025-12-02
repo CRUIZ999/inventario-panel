@@ -6,6 +6,7 @@
 // Nombre del archivo en el repo: inventario.csv
 const CSV_URL = "inventario.csv";
 
+
 // Datos en memoria
 let rawData = [];      // todos los registros
 let filteredData = []; // registros filtrados
@@ -534,4 +535,5 @@ function actualizarContadoresChips() {
     span.textContent = (conteos[value] || 0).toLocaleString();
   });
 }
+
 
