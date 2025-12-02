@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Inventario CSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fuente bonita -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo-dot"></span>
+      <h1>Panel de Inventario</h1>
+      <span class="topbar-subtitle">Archivo CSV delimitado por comas</span>
+    </div>
+
+    <div class="topbar-right">
+      <label class="file-label">
+        <input type="file" id="fileInput" accept=".csv" />
+        <span>Subir CSV</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Panel lateral de filtros -->
+    <aside class="sidebar">
+      <section class="sidebar-section">
+        <h2>Filtros</h2>
+
+        <div class="field">
+          <label for="searchInput">Buscar</label>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Código, clave o descripción…"
+          />
+        </div>
+
+        <div class="field">
+          <label>Clasificación</label>
+          <div id="clasifChips" class="chips">
+            <!-- Se genera dinámicamente cuando se carga el CSV -->
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="coberturaSelect">Cobertura (Mes)</label>
+          <select id="coberturaSelect">
+            <option value="all">Todas</option>
+            <option value="critico">0 a &lt;=1 mes (crítico)</option>
+            <option value="medio">&gt;1 y &lt;=3 meses</option>
+            <option value="alto">&gt;3 meses</option>
+          </select>
+        </div>
+
+        <button id="clearFiltersBtn" class="btn-secondary">
+          Limpiar filtros
+        </button>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Estado del archivo</h2>
+        <p id="fileStatus">Aún no se ha cargado ningún CSV.</p>
+      </section>
+    </aside>
+
+    <!-- Contenido principal -->
+    <section class="content">
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">Productos</span>
+          <span id="kpiProductos" class="kpi-value">–</span>
+          <span class="kpi-sub">Filtrados / Totales</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Inventario total</span>
+          <span id="kpiInventario" class="kpi-value">–</span>
+          <span class="kpi-sub">Suma de Inv</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Prom. venta mensual</span>
+          <span id="kpiPromedioVenta" class="kpi-value">–</span>
+          <span class="kpi-sub">Suma Promedio Vta Mes</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Cobertura promedio</span>
+          <span id="kpiCobertura" class="kpi-value">–</span>
+          <span class="kpi-sub">Días (30)</span>
+        </div>
+      </div>
+
+      <!-- Resumen por clasificación -->
+      <div class="summary-grid" id="clasifSummary">
+        <!-- Se llena dinámicamente -->
+      </div>
+
+      <!-- Tabla -->
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Detalle de productos</h2>
+          <span id="rowsInfo" class="rows-info">0 registros</span>
+        </div>
+        <div class="table-wrapper">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th data-key="codigo">Código</th>
+                <th data-key="clave">Clave</th>
+                <th data-key="desc_prod">Descripción</th>
+                <th data-key="inv" class="is-numeric">Inv</th>
+                <th data-key="clasificacion">Clasificación</th>
+                <th data-key="promedio_vta_mes" class="is-numeric">Promedio Vta Mes</th>
+                <th data-key="cobertura_mes" class="is-numeric">Cobertura (Mes)</th>
+                <th data-key="cobertura_dias_30" class="is-numeric">Cobertura Días (30)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Filas generadas por JS -->
+            </tbody>
+          </table>
+        </div>
+        <p class="helper-text">
+          Da clic en los encabezados para ordenar. La tabla sólo usa los datos del CSV que subas.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Ferretería El Cedro · Panel ligero para análisis de CSV · Solo front-end (GitHub Pages)</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
